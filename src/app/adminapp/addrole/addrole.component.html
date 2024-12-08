@@ -1,0 +1,13 @@
+<!-- add-role.component.html -->
+<div class="role-container">
+    <h3>Add Role</h3>
+    <form [formGroup]="roleForm" (ngSubmit)="addRole()">
+      <select formControlName="industry_id">
+        <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
+      </select>
+      <input formControlName="name" placeholder="Role Name" />
+      <button type="submit" [disabled]="!roleForm.valid">Add Role</button>
+    </form>
+
+  </div>
+  

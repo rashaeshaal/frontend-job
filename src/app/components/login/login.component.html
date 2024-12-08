@@ -1,0 +1,46 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <!-- Email Input -->
+    <div class="mb-6">
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="Email"
+        class="form-input"
+        [ngClass]="{ 'error': f['email'].invalid && f['email'].touched }"
+      />
+      <div *ngIf="f['email'].invalid && f['email'].touched" class="error-message">
+        <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+        <div *ngIf="f['email'].errors?.['email']">Please enter a valid email address.</div>
+      </div>
+    </div>
+
+    <!-- Password Input -->
+    <div class="mb-6">
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Password"
+        class="form-input"
+        [ngClass]="{ 'error': f['password'].invalid && f['password'].touched }"
+      />
+      <div *ngIf="f['password'].invalid && f['password'].touched" class="error-message">
+        <div *ngIf="f['password'].errors?.['required']">Password is required.</div>
+        <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters long.</div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+  </form>
+
+  <div class="signup-link">
+    <p>Don't have an account? <a href="/register">Sign Up</a></p>
+  </div>
+</div>

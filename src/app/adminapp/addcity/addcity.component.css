@@ -1,0 +1,132 @@
+/* General container styles */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    color: #4CAF50;
+    margin-bottom: 15px;
+  }
+  
+  .no-cities-message p {
+    color: #ff6f61;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Form styling */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  input:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* City list styles */
+  .city-list {
+    margin-top: 40px;
+  }
+  
+  .city-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .city-list li {
+    background-color: #f1f1f1;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .city-list li button {
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .city-list li button:hover {
+    background-color: #e53935;
+  }
+  
+  .city-list li button.edit {
+    background-color: #4CAF50;
+  }
+  
+  .city-list li button.edit:hover {
+    background-color: #45a049;
+  }
+  
+  /* Go back button */
+  button.go-back {
+    background-color: #2196F3;
+    margin-top: 20px;
+  }
+  
+  button.go-back:hover {
+    background-color: #1976D2;
+  }
+  

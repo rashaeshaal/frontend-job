@@ -1,0 +1,48 @@
+<div class="view-job-applied-container">
+    <h2>Job Applications</h2>
+  
+    <table class="job-applied-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Job Title</th>
+          <th>Applicant Email</th>
+          <th>Resume</th>
+          <th>Application Date</th>
+          <th>Status</th> <!-- New Column for Status -->
+          <th>Actions</th> <!-- New Column for Update Button -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of jobApplications; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ application.job_title }}</td>
+          <td>{{ application.email }}</td>
+          <td>
+            <a [href]="application.resume_url" target="_blank">View Resume</a>
+          </td>
+          <td>{{ application.application_date | date: 'dd/MM/yyyy' }}</td>
+  
+          <!-- Dropdown to select status -->
+          <td>
+            <select [(ngModel)]="application.status" (change)="updateStatus(application.id, application.status)">
+              <option *ngFor="let status of statuses" [value]="status">
+                {{ status }}
+              </option>
+            </select>
+          </td>
+  
+          <!-- Button to trigger the status update -->
+          <td>
+            <button (click)="updateStatus(application.id, application.status)">Update</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Message to show if no job applications exist -->
+    <div *ngIf="jobApplications.length === 0" class="no-data">
+      <p>No job applications found.</p>
+    </div>
+  </div>
+  

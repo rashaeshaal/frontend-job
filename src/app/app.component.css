@@ -1,0 +1,27 @@
+/* app.component.scss */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  .navbar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+  }
+  
+  .navbar a {
+    color: white;
+    margin-right: 20px;
+    text-decoration: none;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  .content {
+    margin-top: 20px;
+  }
+  

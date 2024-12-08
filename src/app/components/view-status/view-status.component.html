@@ -1,0 +1,37 @@
+<div class="view-status-container">
+    <h2>Check Job Application Status</h2>
+  
+    <!-- Email Input Form -->
+    <input 
+      type="email" 
+      placeholder="Enter your email address" 
+      [(ngModel)]="email" 
+      class="email-input"
+    >
+    <button (click)="loadUserJobApplications()" class="view-status-button">View Status</button>
+  
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Job Application Summary -->
+    <div *ngIf="userJobApplications.length > 0" class="job-application-summary">
+      <div *ngFor="let application of userJobApplications; let i = index" class="job-application-card">
+        <div class="job-application-header">
+          <h3>{{ application.job_title }}</h3>
+          <span class="status">{{ application.status }}</span>
+        </div>
+        <p><strong>Applied On:</strong> {{ application.applied_on }}</p>
+        <div *ngIf="application.resume_url">
+          <a [href]="application.resume_url" target="_blank" class="view-resume-link">View Resume</a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- No Data Found Message -->
+    <div *ngIf="userJobApplications.length === 0 && !errorMessage" class="no-data">
+      No job applications found.
+    </div>
+  </div>
+  

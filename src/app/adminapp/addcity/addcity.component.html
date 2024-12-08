@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>{{ editingCityId ? 'Edit City' : 'Add New City' }}</h2>
+  <form [formGroup]="cityForm" (ngSubmit)="addCity()">
+    <label for="name">City Name:</label>
+    <input id="name" formControlName="name" placeholder="Enter city name">
+    
+    <label for="state">State:</label>
+    <select id="state" formControlName="state_id" (change)="onStateChange()">
+      <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+    </select>
+  
+    
+    <button type="submit" [disabled]="cityForm.invalid">{{ editingCityId ? 'Update City' : 'Add City' }}</button>
+  </form>
+
+  <!-- Display list of cities below the form -->
+  <div *ngIf="cities.length > 0" class="city-list">
+    <h3>Cities List</h3>
+    <ul>
+      <li *ngFor="let city of cities">
+        {{ city.name }} - {{ city.state?.name }}
+        <button (click)="editCity(city.id)">Edit</button>
+        <button (click)="deleteCity(city.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- If no cities are loaded, show a message -->
+  <div *ngIf="cities.length === 0" class="no-cities-message">
+    <p>No cities found for the selected state.</p>
+  </div>
+
+  <!-- Go back button -->
+  <button (click)="goBack()">Go Back</button>
+</div>

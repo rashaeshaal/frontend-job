@@ -1,0 +1,29 @@
+<div class="container">
+  <h2 *ngIf="!stateForm.value.id">Add New State</h2>
+  <h2 *ngIf="stateForm.value.id">Edit State</h2>
+
+  <!-- Add State Button -->
+  <button class="add-state-btn" (click)="toggleStateForm()">Add State</button>
+
+  <!-- Form to Add/Edit State -->
+  <form *ngIf="isFormVisible" [formGroup]="stateForm" (ngSubmit)="stateForm.value.id ? updateState() : addState()">
+    <label for="name">State Name:</label>
+    <input id="name" formControlName="name" placeholder="Enter state name">
+
+    <button type="submit" [disabled]="stateForm.invalid">{{ stateForm.value.id ? 'Update State' : 'Add State' }}</button>
+  </form>
+
+  <div *ngIf="states.length > 0" class="state-list">
+    <h3>States List</h3>
+    <ul>
+      <li *ngFor="let state of states">
+        {{ state.name }}
+        <button (click)="editState(state)">Edit</button>
+        <button (click)="deleteState(state.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Go Back Button (Visible in Add/Edit state page) -->
+  <button class="go-back-btn" (click)="goBack()">Go Back</button>
+</div>

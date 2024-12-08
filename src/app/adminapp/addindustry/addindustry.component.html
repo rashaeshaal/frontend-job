@@ -1,0 +1,10 @@
+<!-- add-industry.component.html -->
+<div class="industry-container">
+    <h3>Add Industry</h3>
+    <form [formGroup]="industryForm" (ngSubmit)="addIndustry()">
+      <input formControlName="name" placeholder="Industry Name" />
+      <button type="submit" [disabled]="!industryForm.valid">Add Industry</button>
+    </form>
+    
+  </div>
+  

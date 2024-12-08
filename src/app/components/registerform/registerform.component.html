@@ -1,0 +1,120 @@
+<form class="register-form" [formGroup]="registerForm" (ngSubmit)="register()">
+  <!-- Full Name -->
+  <div class="form-group">
+    <label for="full_name">Full Name</label>
+    <input type="text" id="full_name" formControlName="full_name" aria-describedby="full_name_error" placeholder="Enter your full name"/>
+    <div *ngIf="f['full_name'].touched && f['full_name'].invalid" class="error" id="full_name_error" role="alert">
+      <small *ngIf="f['full_name'].errors?.['required']">Full Name is required.</small>
+    </div>
+  </div>
+
+  <!-- Email Address -->
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" formControlName="email" aria-describedby="email_error" placeholder="Enter your email"/>
+    <div *ngIf="f['email'].touched && f['email'].invalid" class="error" id="email_error" role="alert">
+      <small *ngIf="f['email'].errors?.['required']">Email is required.</small>
+      <small *ngIf="f['email'].errors?.['email']">Enter a valid email address.</small>
+    </div>
+  </div>
+
+  <!-- Phone Number -->
+  <div class="form-group">
+    <label for="phone_number">Phone Number</label>
+    <input type="text" id="phone_number" formControlName="phone_number" aria-describedby="phone_number_error" placeholder="Enter your phone number"/>
+    <div *ngIf="f['phone_number'].touched && f['phone_number'].invalid" class="error" id="phone_number_error" role="alert">
+      <small *ngIf="f['phone_number'].errors?.['required']">Phone Number is required.</small>
+      <small *ngIf="f['phone_number'].errors?.['pattern']">Enter a valid 10-digit phone number.</small>
+    </div>
+  </div>
+
+  <!-- Password -->
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" formControlName="password" aria-describedby="password_error" placeholder="Create a password"/>
+    <div *ngIf="f['password'].touched && f['password'].invalid" class="error" id="password_error" role="alert">
+      <small *ngIf="f['password'].errors?.['required']">Password is required.</small>
+      <small *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 characters.</small>
+      <small *ngIf="f['password'].errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.</small>
+    </div>
+  </div>
+
+  <!-- Confirm Password -->
+  <div class="form-group">
+    <label for="confirm_password">Confirm Password</label>
+    <input type="password" id="confirm_password" formControlName="confirm_password" aria-describedby="confirm_password_error" placeholder="Confirm your password"/>
+    <div *ngIf="f['confirm_password'].touched && f['confirm_password'].invalid" class="error" id="confirm_password_error" role="alert">
+      <small *ngIf="f['confirm_password'].errors?.['required']">Confirm Password is required.</small>
+      <small *ngIf="f['confirm_password'].errors?.['passwordMismatch']">Passwords must match.</small>
+    </div>
+  </div>
+
+  <!-- Gender -->
+  <div class="form-group">
+    <label for="gender">Gender</label>
+    <select id="gender" formControlName="gender" aria-label="Gender">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <!-- State -->
+  <div class="form-group">
+    <label for="state">State</label>
+    <select id="state" formControlName="state" (change)="onStateChange($event)" aria-label="State">
+      <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+    </select>
+  </div>
+
+  <!-- City (Dependent on State) -->
+  <div class="form-group">
+    <label for="city">City</label>
+    <select id="city" formControlName="city" aria-label="City">
+      <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+    </select>
+  </div>
+
+  <!-- Date of Birth -->
+  <div class="form-group">
+    <label for="date_of_birth">Date of Birth</label>
+    <input type="date" id="date_of_birth" formControlName="date_of_birth" aria-describedby="dob_error"/>
+    <div *ngIf="f['date_of_birth'].touched && f['date_of_birth'].invalid" class="error" id="dob_error" role="alert">
+      <small *ngIf="f['date_of_birth'].errors?.['required']">Date of Birth is required.</small>
+      <small *ngIf="f['date_of_birth'].errors?.['minAge']">You must be at least 18 years old.</small>
+    </div>
+  </div>
+
+  <!-- Profile Picture -->
+  <div class="form-group">
+    <label for="profile_picture">Profile Picture (Optional)</label>
+    <input type="file" id="profile_picture" formControlName="profile_picture" accept="image/*" />
+    <div *ngIf="f['profile_picture'].touched && f['profile_picture'].invalid" class="error" role="alert">
+      <small *ngIf="f['profile_picture'].errors?.['fileType']">Only image files (jpg, jpeg, png) are allowed.</small>
+    </div>
+  </div>
+
+  <!-- Terms and Conditions -->
+  <div class="form-group">
+    <label for="terms_and_conditions" class="terms-checkbox">
+      <input type="checkbox" id="terms_and_conditions" formControlName="terms_and_conditions" />
+      I accept the terms and conditions
+    </label>
+    <div *ngIf="f['terms_and_conditions'].touched && f['terms_and_conditions'].invalid" class="error" role="alert">
+      <small *ngIf="f['terms_and_conditions'].errors?.['requiredTrue']">You must accept the terms and conditions.</small>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <button type="submit" [disabled]="loading" class="submit-btn">Register</button>
+    <button type="button" (click)="resetForm()" class="reset-btn">Reset</button>
+  </div>
+  
+</form>
+
+<!-- Footer -->
+<div class="footer">
+  <p>Already have an account? <a href="/handlelogin">Login</a></p>
+</div>

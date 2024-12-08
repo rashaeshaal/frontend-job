@@ -1,0 +1,27 @@
+<div class="dashboard-container">
+  <!-- Navbar -->
+  <div class="navbar">
+    <h2>Admin Dashboard</h2>
+    <button class="logout-btn">Logout</button>
+  </div>
+
+  <div class="content">
+
+    <div class="sidebar">
+      <ul>
+        <li><a routerLink="/add-job">Add Job</a></li>
+        <li><a routerLink="/job-list">Job Listings</a></li>
+        <li><a routerLink="/add-state">Add State</a></li>
+        <li><a routerLink="/add-city">Add City</a></li>
+        <li><a routerLink="/add-role">Add Role</a></li>
+        <li><a routerLink="/add-industry">Add industry</a></li>
+        <li><a routerLink="/view-job-applied">View Job Applied</a></li> 
+      </ul>
+    </div>
+
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

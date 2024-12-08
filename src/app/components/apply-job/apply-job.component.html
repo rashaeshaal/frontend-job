@@ -1,0 +1,51 @@
+<div class="apply-job-container">
+    <h2>Apply for Job</h2>
+    <form [formGroup]="applyForm" (ngSubmit)="onSubmit()">
+      <!-- Job Details Section -->
+      <div class="job-details">
+        <h3>{{ jobDetails?.title }}</h3>
+        <p>{{ jobDetails?.description }}</p>
+      </div>
+  
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email" 
+          class="form-control" 
+          placeholder="Enter your email"
+          [class.is-invalid]="f['email'].touched && f['email'].invalid" />
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback">
+          <div *ngIf="f['email'].errors?.['required']">Email is required.</div>
+          <div *ngIf="f['email'].errors?.['email']">Please enter a valid email address.</div>
+        </div>
+      </div>
+  
+      <!-- Resume Upload Field -->
+      <div class="form-group">
+        <label for="resume">Resume:</label>
+        <input 
+          type="file" 
+          id="resume" 
+          formControlName="resume" 
+          class="form-control" 
+          (change)="onFileSelect($event)" />
+        <div *ngIf="f['resume'].touched && f['resume'].invalid" class="invalid-feedback">
+          <div *ngIf="f['resume'].errors?.['required']">Resume is required.</div>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button 
+          type="submit" 
+          class="btn btn-primary" 
+          [disabled]="applyForm.invalid">
+          Submit Application
+        </button>
+      </div>
+    </form>
+  </div>
+  

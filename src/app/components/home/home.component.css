@@ -1,0 +1,153 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: #2563eb; /* Blue background */
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar .nav-links {
+    display: flex;
+    gap: 24px;
+    font-size: 18px;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+    text-decoration: underline;
+    color: #93c5fd; /* Lighter blue on hover */
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 16px;
+}
+
+/* Filters Section Styling */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.filters select, .filters button {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+}
+
+.filters select:focus, .filters button:focus {
+    outline: none;
+    border: 1px solid #2563eb; /* Blue focus border */
+}
+
+.filters button {
+    background-color: #2563eb; /* Blue button */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filters button:hover {
+    background-color: #1d4ed8; /* Darker blue on hover */
+}
+
+/* Job Listings Section Styling */
+.job-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.job-item {
+    background-color: white;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.job-item:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.job-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.job-item p {
+    font-size: 16px;
+    color: #4b5563; /* Gray text */
+    margin-bottom: 12px;
+}
+
+.job-item p strong {
+    color: #2563eb; /* Blue for labels */
+}
+
+.job-item button {
+    background-color: #22c55e; /* Green button */
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 12px;
+}
+
+.job-item button:hover {
+    background-color: #16a34a; /* Darker green on hover */
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (min-width: 768px) {
+    .job-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .job-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .filters select, .filters button {
+        font-size: 18px;
+    }
+
+    .job-item {
+        padding: 32px;
+    }
+}

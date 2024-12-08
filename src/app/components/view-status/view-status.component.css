@@ -1,0 +1,163 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  /* View Status Container */
+  .view-status-container {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 24px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .view-status-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Email Input Form */
+  .email-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+  }
+  
+  .email-input:focus {
+    border-color: #2563eb;
+    outline: none;
+  }
+  
+  /* View Status Button */
+  .view-status-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .view-status-button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .view-status-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  /* Error Message Styling */
+  .error-message {
+    color: #ef4444;
+    font-size: 16px;
+    margin-top: 12px;
+    text-align: center;
+  }
+  
+  /* Job Application Summary (Cards) */
+  .job-application-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .job-application-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .job-application-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .job-application-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .job-application-header h3 {
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .status {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 12px;
+    background-color: #e5e7eb;
+    border-radius: 4px;
+    color: #4b5563;
+  }
+  
+  .job-application-card p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .view-resume-link {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .view-resume-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* No Data Message */
+  .no-data {
+    text-align: center;
+    font-size: 18px;
+    color: #9ca3af;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .view-status-container {
+      padding: 16px;
+    }
+  
+    .view-status-container h2 {
+      font-size: 24px;
+    }
+  
+    .email-input,
+    .view-status-button {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .job-application-card p {
+      font-size: 14px;
+    }
+  }
+  

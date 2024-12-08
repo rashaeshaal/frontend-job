@@ -1,0 +1,67 @@
+.register-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input[type="file"] {
+  display: inline-block;
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+.reset-btn {
+  background-color: #f44336;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

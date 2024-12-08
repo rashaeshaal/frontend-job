@@ -1,0 +1,77 @@
+/* Container for the job listings */
+.job-list-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .job-list-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Style the table */
+  .job-list-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Style table headers */
+  .job-list-container th {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  /* Style table cells */
+  .job-list-container td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  /* Style for the action buttons */
+  .job-list-container button {
+    padding: 8px 12px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Button hover effect */
+  .job-list-container button:hover {
+    background-color: #e53935;
+  }
+  
+  /* Responsive table styling */
+  @media (max-width: 768px) {
+    .job-list-container {
+      padding: 15px;
+    }
+  
+    .job-list-container table {
+      font-size: 14px;
+    }
+  
+    .job-list-container th, .job-list-container td {
+      padding: 8px;
+    }
+  
+    .job-list-container button {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }
+  

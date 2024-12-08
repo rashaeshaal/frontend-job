@@ -1,0 +1,82 @@
+/* Style the container */
+.add-job-container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-job-container h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Style for the form labels */
+  .add-job-container label {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #555;
+  }
+  
+  /* Style the form input fields */
+  .add-job-container input,
+  .add-job-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .add-job-container textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+  /* Button styling */
+  .add-job-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Button hover effect */
+  .add-job-container button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Disable the button when the form is invalid */
+  .add-job-container button[disabled] {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+  }
+  
+  /* Make the form responsive */
+  @media (max-width: 768px) {
+    .add-job-container {
+      padding: 15px;
+    }
+  
+    .add-job-container h2 {
+      font-size: 20px;
+    }
+  
+    .add-job-container input,
+    .add-job-container textarea,
+    .add-job-container button {
+      font-size: 14px;
+    }
+  }
+  

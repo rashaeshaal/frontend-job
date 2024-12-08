@@ -1,0 +1,45 @@
+<div class="job-list-container">
+  <h2>Job Listings</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <label for="industry">Filter by Industry:</label>
+    <select id="industry" [(ngModel)]="selectedIndustry" (change)="filterJobs()">
+      <option value="">--Select Industry--</option>
+      <option *ngFor="let industry of industries" [value]="industry">{{ industry }}</option>
+    </select>
+
+    <label for="role">Filter by Role:</label>
+    <select id="role" [(ngModel)]="selectedRole" (change)="filterJobs()">
+      <option value="">--Select Role--</option>
+      <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+    </select>
+  </div>
+
+  <!-- Job Listings Table -->
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Salary Range</th>
+        <th>Industry</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of filteredJobs">
+        <td>{{ job.title }}</td>
+        <td>{{ job.description }}</td>
+        <td>{{ job.salary_min }} - {{ job.salary_max }}</td>
+        <td>{{ job.industry }}</td>
+        <td>{{ job.role }}</td>
+        <td>
+          <button (click)="editJob(job.id)">Edit</button>
+          <button (click)="deleteJob(job.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
