@@ -11,63 +11,95 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  jobs: Job[] = []; // Full list of jobs from the API
-  filteredJobs: Job[] = []; // Filtered list of jobs
-  industries: string[] = []; // List of industries for the filter
-  roles: string[] = []; // List of roles for the filter
-  allRoles: string[] = []; // Full list of roles before filtering
-  selectedIndustry: string = ''; // Selected industry for the filter
-  selectedRole: string = ''; // Selected role for the filter
+  jobs: Job[] = [];
+  filteredJobs: Job[] = [];
+  industries: string[] = [];
+  roles: string[] = [];
+  allRoles: string[] = [];
+  selectedIndustry: string = '';
+  selectedRole: string = '';
+  userData: any = {};
+  loginUserID!: number;
+  loginUserType!: number;
+  receivedData: any;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    // Retrieve user data from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.userData = JSON.parse(storedUser);
+      this.loginUserID = this.userData.loginUserID;
+      this.loginUserType = this.userData.userType;
+      console.log('Logged-in User:', this.userData);
+    } else {
+      console.log('No user data found in localStorage');
+      // Handle the case when no user data is found (e.g., redirect to login page)
+      this.router.navigate(['/handlelogin']);
+    }
+
     this.loadJobs();
     this.loadIndustries();
     this.loadRoles();
   }
 
-  // Load all jobs from the backend
   loadJobs(): void {
-    this.apiService.getJobss().subscribe((data: any) => {
-      this.jobs = data.jobs;
-      this.filteredJobs = [...this.jobs]; // Default filtered list is the full list
-    });
+    this.apiService.getJobss().subscribe(
+      (data: any) => {
+        this.jobs = data.jobs || [];
+        this.filteredJobs = [...this.jobs];
+      },
+      (error) => {
+        console.error('Error loading jobs:', error);
+      }
+    );
   }
 
-  // Load the list of industries from the backend
   loadIndustries(): void {
-    this.apiService.getIndustries().subscribe((industries: any[]) => {
-      this.industries = industries.map((industry) => industry.name);
-    });
+    this.apiService.getIndustries().subscribe(
+      (industries: any[]) => {
+        this.industries = industries.map((industry) => industry.name);
+      },
+      (error) => {
+        console.error('Error loading industries:', error);
+      }
+    );
   }
 
-  // Load the full list of roles from the backend (for all industries)
   loadRoles(): void {
-    this.apiService.getRoles().subscribe((roles: any[]) => {
-      this.allRoles = roles.map((role) => role.name); // Store all roles as a master list
-      this.roles = [...this.allRoles]; // Initially show all roles
-    });
+    this.apiService.getRoles().subscribe(
+      (roles: any[]) => {
+        this.allRoles = roles.map((role) => role.name);
+        this.roles = [...this.allRoles];
+      },
+      (error) => {
+        console.error('Error loading roles:', error);
+      }
+    );
   }
 
-  // Filter the job list based on the selected industry and role
   filterJobs(): void {
-    // Reset the filtered list to the full jobs list
     this.filteredJobs = this.jobs;
 
-    // Filter by selected industry
     if (this.selectedIndustry) {
       this.filteredJobs = this.filteredJobs.filter(
         (job) => job.industry === this.selectedIndustry
       );
-      // Update roles based on selected industry
+
       const jobsInIndustry = this.jobs.filter(
         (job) => job.industry === this.selectedIndustry
       );
-      this.roles = [...new Set(jobsInIndustry.map((job) => job.role))]; // Unique roles
+
+      this.roles = [...new Set(jobsInIndustry.map((job) => job.role))];
+    } else {
+      this.roles = [...this.allRoles];
     }
 
-    // Further filter by selected role
     if (this.selectedRole) {
       this.filteredJobs = this.filteredJobs.filter(
         (job) => job.role === this.selectedRole
@@ -77,6 +109,8 @@ export class HomeComponent {
 
   applyForJob(job: Job): void {
     console.log(`Applying for job: ${job.title}`);
-    this.router.navigate(['/apply', job.id]); // Pass the job ID as a route parameter
+
+    // Pass loginUserID and loginUserType via router state or localStorage if needed
+    this.router.navigate(['/apply', job.id]);
   }
 }

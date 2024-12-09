@@ -5,6 +5,9 @@
     <input type="text" id="full_name" formControlName="full_name" aria-describedby="full_name_error" placeholder="Enter your full name"/>
     <div *ngIf="f['full_name'].touched && f['full_name'].invalid" class="error" id="full_name_error" role="alert">
       <small *ngIf="f['full_name'].errors?.['required']">Full Name is required.</small>
+      <small *ngIf="f['full_name'].errors?.['minlength']">First name must be at least 3 characters long..</small>
+      <small *ngIf="f['full_name'].errors?.['noSpaces']">No spaces allowed</small>
+
     </div>
   </div>
 
@@ -48,8 +51,6 @@
       <small *ngIf="f['confirm_password'].errors?.['passwordMismatch']">Passwords must match.</small>
     </div>
   </div>
-
-  <!-- Gender -->
   <div class="form-group">
     <label for="gender">Gender</label>
     <select id="gender" formControlName="gender" aria-label="Gender">
@@ -58,23 +59,33 @@
       <option value="Female">Female</option>
       <option value="Other">Other</option>
     </select>
+    <div *ngIf="f['gender'].touched && f['gender'].invalid" class="error" role="alert">
+      <small *ngIf="f['gender'].errors?.['required']">Gender is required.</small>
+    </div>
   </div>
-
-  <!-- State -->
+  
   <div class="form-group">
     <label for="state">State</label>
     <select id="state" formControlName="state" (change)="onStateChange($event)" aria-label="State">
+      <option value="">Select State</option>
       <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
     </select>
+    <div *ngIf="f['state'].touched && f['state'].invalid" class="error" role="alert">
+      <small *ngIf="f['state'].errors?.['required']">State is required.</small>
+    </div>
   </div>
-
-  <!-- City (Dependent on State) -->
+  
   <div class="form-group">
     <label for="city">City</label>
     <select id="city" formControlName="city" aria-label="City">
+      <option value="">Select City</option>
       <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
     </select>
+    <div *ngIf="f['city'].touched && f['city'].invalid" class="error" role="alert">
+      <small *ngIf="f['city'].errors?.['required']">City is required.</small>
+    </div>
   </div>
+  
 
   <!-- Date of Birth -->
   <div class="form-group">
@@ -107,11 +118,11 @@
   </div>
 
   <!-- Buttons -->
-  <div class="buttons">
-    <button type="submit" [disabled]="loading" class="submit-btn">Register</button>
-    <button type="button" (click)="resetForm()" class="reset-btn">Reset</button>
-  </div>
-  
+<div class="buttons">
+  <button *ngIf="registerForm.valid" type="submit" class="submit-btn">Register</button>
+  <button type="button" (click)="resetForm()" class="reset-btn">Reset</button>
+</div>
+
 </form>
 
 <!-- Footer -->

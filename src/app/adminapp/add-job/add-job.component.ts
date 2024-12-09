@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-job',
@@ -15,7 +15,7 @@ export class AddJobComponent {
   industries: any[] = [];
   roles: any[] = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.createJobForm();
   }
 
@@ -70,7 +70,8 @@ export class AddJobComponent {
       this.apiService.addJob(jobData).subscribe(
         (response) => {
           console.log('Job created successfully:', response);
-          this.jobForm.reset();  // Reset the form after submission
+          this.jobForm.reset();
+          this.router.navigate(['/admins']);   
         },
         (error) => {
           console.error('Error creating job:', error);
@@ -79,5 +80,8 @@ export class AddJobComponent {
     } else {
       console.error('Form is invalid');
     }
+  }
+  goBackHome(): void {
+    this.router.navigate(['/admins']);
   }
 }

@@ -12,7 +12,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -21,31 +25,51 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Easy access to form controls
   get f() {
-    return this.loginForm.controls;
+    return this.loginForm.controls;  // This makes 'f' an alias for 'loginForm.controls'
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Form Submitted', this.loginForm.value);
-      
+
       // Call the API to log in the user
       this.apiService.loginUser(this.loginForm.value).subscribe(
         response => {
           console.log('Login Successful', response);
 
-          // Store the token in localStorage
-          localStorage.setItem('authToken', response.token); // Store the token here
+          const loginUserID = response.user.id;  // Assuming response contains user ID
+          const userType = response.user.user_type || 1;  // Adjust according to your response
 
-          // You can redirect the user after login
-          this.router.navigate(['/home']);  // Example redirect
+          // Create the object to pass as query params
+          const idDict = { loginUserID: loginUserID, loginUserType: userType };
+          const encodedData = encodeURIComponent(JSON.stringify(idDict));
+
+          // Store user details in localStorage
+          const userData = {
+            id: loginUserID,
+            email: response.user.email,
+            full_name: response.user.full_name,
+            user_type: userType,
+          };
+          localStorage.setItem('user', JSON.stringify(userData));
+
+          // Optionally, you can also store a JWT token if returned by the API
+          // localStorage.setItem('token', response.token);
+
+          // Navigate to home with query params
+          this.router.navigate(['/home'], {
+            queryParams: { data: encodedData },
+            state: { userData: { loginUserID: loginUserID, loginUserType: userType } } // Pass user data via router state
+          });
         },
         error => {
           console.error('Login Failed', error);
-          // Show error message to the user
+          alert('Login failed! Please check your credentials.');
         }
       );
+    } else {
+      alert('Please fill in all required fields correctly.');
     }
   }
 }

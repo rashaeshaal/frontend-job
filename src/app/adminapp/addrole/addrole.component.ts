@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-addrole',
   standalone: false,
@@ -13,7 +14,7 @@ export class AddroleComponent implements OnInit {
   industries: any[] = [];
   roles: any[] = [];
 
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.roleForm = this.fb.group({
@@ -43,5 +44,8 @@ export class AddroleComponent implements OnInit {
         this.roleForm.reset();
       });
     }
+  }
+  goBackHome(): void {
+    this.router.navigate(['/admins']);
   }
 }

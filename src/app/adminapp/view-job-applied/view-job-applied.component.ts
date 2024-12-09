@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-job-applied',
   standalone: false,
@@ -11,7 +12,7 @@ export class ViewJobAppliedComponent implements OnInit {
   jobApplications: any[] = []; // Store all job applications
   statuses: string[] = ['Applied', 'Interview', 'Hired']; // Possible status options
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadJobApplications(); // Load all job applications on component load
@@ -41,5 +42,8 @@ export class ViewJobAppliedComponent implements OnInit {
         console.error('Error updating status', error);
       }
     );
+  }
+  goBackHome(): void {
+    this.router.navigate(['/admins']); // Redirect to the home page
   }
 }

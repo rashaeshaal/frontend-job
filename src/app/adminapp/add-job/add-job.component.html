@@ -1,28 +1,57 @@
+<button (click)="goBackHome()" class="back-home-button">
+  ⬅️ Back to dashboard
+</button>
 <div class="add-job-container">
   <h2>Add Job Post</h2>
   <form [formGroup]="jobForm" (ngSubmit)="addJob()">
+    
+    <!-- Job Title -->
     <label for="title">Job Title:</label>
     <input type="text" id="title" formControlName="title" required>
+    <div *ngIf="jobForm.controls['title'].invalid && jobForm.controls['title'].touched" class="error">
+      Job Title is required.
+    </div>
 
+    <!-- Job Description -->
     <label for="description">Job Description:</label>
     <textarea id="description" formControlName="description" required></textarea>
+    <div *ngIf="jobForm.controls['description'].invalid && jobForm.controls['description'].touched" class="error">
+      Job Description is required.
+    </div>
 
+    <!-- Minimum Salary -->
     <label for="salary_min">Minimum Salary:</label>
     <input type="number" id="salary_min" formControlName="salary_min" required>
+    <div *ngIf="jobForm.controls['salary_min'].invalid && jobForm.controls['salary_min'].touched" class="error">
+      Minimum Salary is required.
+    </div>
 
+    <!-- Maximum Salary -->
     <label for="salary_max">Maximum Salary:</label>
     <input type="number" id="salary_max" formControlName="salary_max" required>
+    <div *ngIf="jobForm.controls['salary_max'].invalid && jobForm.controls['salary_max'].touched" class="error">
+      Maximum Salary is required.
+    </div>
 
+    <!-- Industry -->
     <label for="industry">Industry:</label>
     <select id="industry" formControlName="industry_id" (change)="onIndustryChange($event)" required>
       <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
     </select>
+    <div *ngIf="jobForm.controls['industry_id'].invalid && jobForm.controls['industry_id'].touched" class="error">
+      Please select an Industry.
+    </div>
 
+    <!-- Role -->
     <label for="role">Role:</label>
     <select id="role" formControlName="role_id" required>
       <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
     </select>
+    <div *ngIf="jobForm.controls['role_id'].invalid && jobForm.controls['role_id'].touched" class="error">
+      Please select a Role.
+    </div>
 
+    <!-- Submit Button -->
     <button type="submit" [disabled]="jobForm.invalid">Add Job</button>
   </form>
 </div>

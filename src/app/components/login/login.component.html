@@ -8,7 +8,7 @@
         type="email"
         placeholder="Email"
         class="form-input"
-        [ngClass]="{ 'error': f['email'].invalid && f['email'].touched }"
+        [ngClass]="{ 'error': f['password'].invalid && f['password'].touched }"
       />
       <div *ngIf="f['email'].invalid && f['email'].touched" class="error-message">
         <div *ngIf="f['email'].errors?.['required']">Email is required.</div>

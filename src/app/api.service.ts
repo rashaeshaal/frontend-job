@@ -40,6 +40,9 @@ export class ApiService {
 
   
   updateJob(jobId: number, jobData: any): Observable<any> {
+    console.log('Job ID:', jobId);
+    console.log('Job Data:', jobData);
+
     return this.http.put(`${this.apiUrl}/jobs/${jobId}/`, jobData);
   }
 
@@ -75,7 +78,7 @@ export class ApiService {
   updateState(state: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/states/${state.id}/`, state);
   }
-  getRolesByIndustry(industryId: string): Observable<any[]> {
+  getRolesByIndustry(industryId:string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/roles/?industry=${industryId}`);
   }
   
@@ -97,9 +100,10 @@ export class ApiService {
   getJobById(jobId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/jobs/${jobId}/`);
   }
-  applyForJob(formData: FormData): Observable<any> {  
-    return this.http.post(`${this.apiUrl}/apply-job/`, formData);
+  applyForJob(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/apply/`, formData);
   }
+  
   getJobApplications() {
     return this.http.get<any[]>(`${this.apiUrl}/job-applications/`);
   }

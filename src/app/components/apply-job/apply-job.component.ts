@@ -5,6 +5,7 @@ import { ApiService } from '../../api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 interface JobApplicationResponse {
   message: string;
+  success: boolean; 
 }
 
 @Component({
@@ -18,24 +19,43 @@ export class ApplyJobComponent implements OnInit {
   applyForm!: FormGroup;
   jobId!: number;
   jobDetails: any;
+  loggedInUserEmail: string | null = null;
+  userData: any = {};
+  loginUserID!: number;
+  loginUserType!: number;
 
   constructor(
-    private fb: FormBuilder, 
-    private apiService: ApiService, 
-    private route: ActivatedRoute, 
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.jobId = Number(this.route.snapshot.paramMap.get('id'));
     this.loadJobDetails();
-
-    // Initialize the apply form with an email field
     this.applyForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]], // Email field
-      resume: [null, [Validators.required]] // Resume field
+      email: ['', [Validators.required, Validators.email]], 
+      resume: ['',Validators.required ]
     });
+
+
+    // Retrieve user data from localStorage
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      this.userData = JSON.parse(storedUser);
+      this.loginUserID = this.userData.id;
+      this.loginUserType = this.userData.user_type;
+      this.loggedInUserEmail = this.userData.email;  // Make sure to assign the email too
+      console.log('Logged-in User:', this.userData);
+    } else {
+      console.log('No user data found in localStorage');
+      // Redirect to login page if no user data is found
+      this.router.navigate(['/hanlelogin']);
+    }
   }
+  
+  
 
   loadJobDetails(): void {
     this.apiService.getJobById(this.jobId).subscribe(
@@ -47,36 +67,65 @@ export class ApplyJobComponent implements OnInit {
       }
     );
   }
-
   get f() {
     return this.applyForm.controls;
   }
+  
 
-  onFileSelect(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.applyForm.patchValue({ resume: file });
+  // Validate the file type of the resume
+  validateFileType(control: AbstractControl): { [key: string]: boolean } | null {
+    const file = control.value;
+    if (file && file.type !== 'application/pdf') {
+        return { invalidFileType: true };
     }
-  }
+    return null;
+}
 
-  onSubmit(): void {
-    if (this.applyForm.valid) {
-      const formData = new FormData();
-      formData.append('resume', this.applyForm.value.resume);
-      formData.append('job_posting_id', this.jobId.toString());
-      formData.append('email', this.applyForm.value.email); // Send email with form data
 
-      this.apiService.applyForJob(formData).subscribe(
-        (response) => {
-          console.log('Application submitted successfully', response);
-          alert('Application submitted successfully!');
-          this.router.navigate(['/home']);
-        },
-        (error) => {
-          console.error('Error submitting application', error);
-          alert('Error submitting application. Please try again.');
-        }
-      );
-    }
+onFileSelected(event: Event): void {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  console.log(file)
+  if (file) {
+    this.applyForm.patchValue({
+      resume: file  // Ensure you're updating the 'resume' form control, not 'profilePicture'
+    });
+    console.log('Selected file:', this.applyForm.get('resume')?.value);
+    this.applyForm.get('resume')?.updateValueAndValidity();
   }
 }
+
+
+  
+
+onSubmit(): void {
+  if (this.applyForm.valid) {
+    console.log('Form Data:', this.applyForm.value);  // Log form data to check if the file is attached
+    
+    // Create a new FormData object to send the file
+    const formData = new FormData();
+    formData.append('resume', this.applyForm.get('resume')?.value); // Append file to FormData
+    formData.append('job_posting_id', this.jobId.toString());
+    formData.append('email', this.loggedInUserEmail!);
+
+    // Log FormData to check its contents
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);  // Log each entry in FormData
+    }
+
+    this.apiService.applyForJob(formData).subscribe(
+      (response: JobApplicationResponse) => {
+        alert('Application submitted successfully!');
+        this.applyForm.reset();
+        this.router.navigate(['/home']);
+      },
+      (error: HttpErrorResponse) => {
+        alert('Error submitting application. Please try again.');
+        console.error(error);
+      }
+    );
+  } else {
+    alert('Please complete the form before submitting.');
+  }
+}
+
+}  

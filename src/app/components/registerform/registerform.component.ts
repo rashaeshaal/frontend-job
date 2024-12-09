@@ -3,7 +3,12 @@ import { FormGroup, FormBuilder, Validators , ValidationErrors, AbstractControl}
 import { ApiService } from '../../api.service';
 import { Router } from '@angular/router';
 import  moment from 'moment';
-
+export function noSpacesValidator(control: AbstractControl): ValidationErrors | null {
+  if (control.value && /\s/.test(control.value)) {
+    return { noSpaces: true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-registerform',
@@ -23,7 +28,7 @@ export class RegisterformComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      full_name: ['', [Validators.required]],
+      full_name: ['', [Validators.required,Validators.minLength(3),noSpacesValidator]],
       email: ['', [Validators.required, Validators.email]],
       phone_number: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       password: ['', [
@@ -74,6 +79,7 @@ export class RegisterformComponent implements OnInit {
   // Method to fetch cities based on selected state
   onStateChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
+    this.registerForm.get('city')?.reset();
     const stateId = Number(target.value);
 
     if (!isNaN(stateId)) {
@@ -91,11 +97,13 @@ export class RegisterformComponent implements OnInit {
  
   register(): void {
     this.submitted = true;
+    console.log('Form Invalid:', this.registerForm.invalid);
   
     
     console.log('Form Invalid:', this.registerForm.invalid);
   
     if (this.registerForm.invalid) {
+      
       return;
     }
   

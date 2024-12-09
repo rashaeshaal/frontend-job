@@ -1,29 +1,67 @@
-<div class="edit-job-container">
-    <h2>Edit Job Post</h2>
-    <form [formGroup]="jobForm" (ngSubmit)="updateJob()">
-      <label for="title">Job Title:</label>
-      <input type="text" id="title" formControlName="title" required>
+<div class="container">
   
-      <label for="description">Job Description:</label>
-      <textarea id="description" formControlName="description" required></textarea>
-  
-      <label for="salary_min">Minimum Salary:</label>
-      <input type="number" id="salary_min" formControlName="salary_min" required>
-  
-      <label for="salary_max">Maximum Salary:</label>
-      <input type="number" id="salary_max" formControlName="salary_max" required>
-  
-      <label for="industry">Industry:</label>
-      <select id="industry" formControlName="industry_id" (change)="onIndustryChange($event)" required>
-        <option *ngFor="let industry of industries" [value]="industry.id">{{ industry.name }}</option>
+  <h2>Edit Job</h2>
+  <button (click)="goBack()" class="back-home-button">
+    ⬅️ Back to dashboard
+  </button>
+  <form [formGroup]="jobForm" (ngSubmit)="updateJob()">
+    <div class="form-group">
+      <label for="title">Job Title</label>
+      <input id="title" formControlName="title" type="text" class="form-control" [ngClass]="{'is-invalid': jobForm.get('title')?.invalid && jobForm.get('title')?.touched}" />
+      <div *ngIf="jobForm.get('title')?.invalid && jobForm.get('title')?.touched" class="invalid-feedback">
+        Title is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Job Description</label>
+      <textarea id="description" formControlName="description" class="form-control" rows="3" [ngClass]="{'is-invalid': jobForm.get('description')?.invalid && jobForm.get('description')?.touched}"></textarea>
+      <div *ngIf="jobForm.get('description')?.invalid && jobForm.get('description')?.touched" class="invalid-feedback">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="salary_min">Minimum Salary</label>
+      <input id="salary_min" formControlName="salary_min" type="number" class="form-control" [ngClass]="{'is-invalid': jobForm.get('salary_min')?.invalid && jobForm.get('salary_min')?.touched}" />
+      <div *ngIf="jobForm.get('salary_min')?.invalid && jobForm.get('salary_min')?.touched" class="invalid-feedback">
+        Minimum salary is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="salary_max">Maximum Salary</label>
+      <input id="salary_max" formControlName="salary_max" type="number" class="form-control" [ngClass]="{'is-invalid': jobForm.get('salary_max')?.invalid && jobForm.get('salary_max')?.touched}" />
+      <div *ngIf="jobForm.get('salary_max')?.invalid && jobForm.get('salary_max')?.touched" class="invalid-feedback">
+        Maximum salary is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="industry">Industry</label>
+      <select id="industry" formControlName="industry" class="form-control" [ngClass]="{'is-invalid': jobForm.get('industry')?.invalid && jobForm.get('industry')?.touched}">
+        <option value="">Select Industry</option>
+        <option *ngFor="let industry of industries" [value]="industry.name">{{ industry.name }}</option>
       </select>
-  
-      <label for="role">Role:</label>
-      <select id="role" formControlName="role_id" required>
-        <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+      <div *ngIf="jobForm.get('industry')?.invalid && jobForm.get('industry')?.touched" class="invalid-feedback">
+        Industry is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="role_id">Role</label>
+      <select id="role_id" formControlName="role_id" class="form-control" [ngClass]="{'is-invalid': jobForm.get('role_id')?.invalid && jobForm.get('role_id')?.touched}">
+        <option value="">Select Role</option>
+        <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option> <!-- Use role.id here -->
       </select>
-  
-      <button type="submit" [disabled]="jobForm.invalid">Update Job</button>
-    </form>
-  </div>
-  
+      <div *ngIf="jobForm.get('role_id')?.invalid && jobForm.get('role_id')?.touched" class="invalid-feedback">
+        Role is required.
+      </div>
+    </div>
+    
+    
+    
+
+    <button type="submit" class="btn btn-primary" [disabled]="jobForm.invalid">Update Job</button>
+  </form>
+</div>

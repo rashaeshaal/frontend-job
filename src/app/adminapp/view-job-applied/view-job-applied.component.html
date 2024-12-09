@@ -1,5 +1,8 @@
 <div class="view-job-applied-container">
     <h2>Job Applications</h2>
+    <button (click)="goBackHome()" class="back-home-button">
+      ⬅️ Back to dashboard
+    </button>
   
     <table class="job-applied-table">
       <thead>
@@ -21,7 +24,7 @@
           <td>
             <a [href]="application.resume_url" target="_blank">View Resume</a>
           </td>
-          <td>{{ application.application_date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ application.applied_on | date: 'dd/MM/yyyy' }}</td>
   
           <!-- Dropdown to select status -->
           <td>

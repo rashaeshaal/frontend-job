@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-addindustry',
   standalone: false,
@@ -12,7 +13,7 @@ export class AddindustryComponent implements OnInit {
   industryForm!: FormGroup;
   industries: any[] = [];
   
-  constructor(private fb: FormBuilder, private apiService: ApiService) {}
+  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {}
   
   ngOnInit(): void {
     this.industryForm = this.fb.group({
@@ -34,5 +35,8 @@ export class AddindustryComponent implements OnInit {
         this.industryForm.reset();
       });
     }
+  }
+  goBackHome(): void {
+    this.router.navigate(['/admins']); // Redirect to the home page
   }
 }

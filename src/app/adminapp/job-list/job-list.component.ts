@@ -85,4 +85,7 @@ export class JobListComponent implements OnInit {
       this.loadJobs(); 
     });
   }
+  goBack(): void {
+    this.router.navigate(['/admins']);
+  }
 }

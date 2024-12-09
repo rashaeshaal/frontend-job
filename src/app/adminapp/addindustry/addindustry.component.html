@@ -1,5 +1,8 @@
-<!-- add-industry.component.html -->
+
 <div class="industry-container">
+  <button (click)="goBackHome()" class="back-home-button">
+    ⬅️ Back to dashboard
+  </button>
     <h3>Add Industry</h3>
     <form [formGroup]="industryForm" (ngSubmit)="addIndustry()">
       <input formControlName="name" placeholder="Industry Name" />

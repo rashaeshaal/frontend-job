@@ -33,19 +33,26 @@ export class EditJobComponent implements OnInit {
     this.loadIndustries();
   }
 
-  // Create the job form with validations
   createJobForm(): void {
     this.jobForm = this.fb.group({
-      title: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      salary_min: ['', [Validators.required]],
-      salary_max: ['', [Validators.required]],
-      industry_id: ['', [Validators.required]],
-      role_id: ['', [Validators.required]],
+      title: ['', [Validators.required]], // Job title
+      description: ['', [Validators.required]], // Job description
+      salary_min: ['', [Validators.required]], // Minimum salary
+      salary_max: ['', [Validators.required]], // Maximum salary
+      industry: ['', [Validators.required]], // Industry name
+      role_id: ['', [Validators.required]], // Role ID
+    });
+
+    this.jobForm.get('industry')?.valueChanges.subscribe((industry) => {
+      if (industry) {
+        this.loadRolesByIndustry(industry); // Fetch roles based on selected industry
+      } else {
+        this.roles = [];
+        this.jobForm.patchValue({ role_id: '' });
+      }
     });
   }
 
-  // Load job details by ID for editing
   loadJobData(): void {
     this.apiService.getJobById(this.jobId).subscribe(
       (response) => {
@@ -55,9 +62,13 @@ export class EditJobComponent implements OnInit {
           description: this.jobData?.description,
           salary_min: this.jobData?.salary_min,
           salary_max: this.jobData?.salary_max,
-          industry_id: this.jobData?.industry,
+          industry: this.jobData?.industry,
           role_id: this.jobData?.role
         });
+
+        if (this.jobData?.industry) {
+          this.loadRolesByIndustry(this.jobData.industry);
+        }
       },
       (error) => {
         console.error('Error fetching job details:', error);
@@ -65,27 +76,30 @@ export class EditJobComponent implements OnInit {
     );
   }
 
-  // Load industries for the dropdown
   loadIndustries(): void {
-    this.apiService.getIndustries().subscribe((industries) => {
-      this.industries = industries;
-    });
+    this.apiService.getIndustries().subscribe(
+      (industries) => {
+        this.industries = industries;
+      },
+      (error) => {
+        console.error('Error loading industries:', error);
+      }
+    );
   }
 
-  // Method to fetch roles when an industry is selected
-  onIndustryChange(event: Event): void {
-    const industryId = (event.target as HTMLSelectElement).value;
-    if (industryId) {
-      this.apiService.getRolesByIndustry(industryId).subscribe((roles) => {
+  loadRolesByIndustry(industry: string): void {
+    this.apiService.getRolesByIndustry(industry).subscribe(
+      (roles) => {
         this.roles = roles;
-        this.jobForm.patchValue({ role_id: '' });
-      });
-    } else {
-      this.roles = [];
-    }
+      },
+      (error) => {
+        console.error('Error loading roles for industry:', industry, error);
+      }
+    );
   }
 
-  // Submit the form to update the job
+
+
   updateJob(): void {
     if (this.jobForm.valid) {
       const jobData = {
@@ -93,14 +107,14 @@ export class EditJobComponent implements OnInit {
         job_description: this.jobForm.value.description,
         salary_min: this.jobForm.value.salary_min,
         salary_max: this.jobForm.value.salary_max,
-        industry_id: this.jobForm.value.industry_id,
-        role_id: this.jobForm.value.role_id
+        industry: this.jobForm.value.industry,
+        role_id: this.jobForm.value.role_id // Ensure role_id is numeric
       };
-
+  
       this.apiService.updateJob(this.jobId, jobData).subscribe(
         (response) => {
           console.log('Job updated successfully:', response);
-          this.router.navigate(['/job-list']); // Navigate back to the job list
+          this.router.navigate(['/job-list']);
         },
         (error) => {
           console.error('Error updating job:', error);
@@ -109,5 +123,8 @@ export class EditJobComponent implements OnInit {
     } else {
       console.error('Form is invalid');
     }
+  }
+    goBack(): void {
+    this.router.navigate(['/admins']);
   }
 }

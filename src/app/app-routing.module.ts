@@ -16,7 +16,7 @@ import { ViewJobAppliedComponent } from './adminapp/view-job-applied/view-job-ap
 import { ViewStatusComponent } from './components/view-status/view-status.component';
 import { AdminloginComponent } from './adminapp/adminlogin/adminlogin.component';
 const routes: Routes = [
-  { path: '', redirectTo: '/register', pathMatch: 'full' },
+  { path: '', redirectTo: '/handlelogin', pathMatch: 'full' },
   { path: 'register', component: RegisterformComponent },
   { path: 'admins', component :AdminDashboardComponent },
   { path: 'add-job', component: AddJobComponent },

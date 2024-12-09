@@ -45,7 +45,7 @@ button {
 }
 
 button:disabled {
-  background-color: #ccc;
+  background-color: #c99090;
 }
 
 .reset-btn {
