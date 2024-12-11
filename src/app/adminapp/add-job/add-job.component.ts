@@ -32,29 +32,27 @@ export class AddJobComponent {
       description: ['', [Validators.required]],
       salary_min: ['', [Validators.required]],
       salary_max: ['', [Validators.required]],
-      industry_id: ['', [Validators.required]],
-      role_id: ['', [Validators.required]],
+      industry_id: ['', [Validators.required]],  // Make sure it's industry_id not name
+      role_id: ['', [Validators.required]], 
     });
   }
 
   // Method to fetch roles when an industry is selected
   onIndustryChange(event: Event): void {
-    const industryId = (event.target as HTMLSelectElement).value;
+    const industryId = parseInt((event.target as HTMLSelectElement).value, 10); // Get industry_id
+    console.log('Selected Industry ID:', industryId);  // Check if industryId is correct
     if (industryId) {
-      // Fetch roles specific to the selected industry
-      this.apiService.getRolesByIndustry(industryId).subscribe((roles) => {
-        this.roles = roles;  // Update roles based on selected industry
-        this.jobForm.patchValue({ role_id: '' });  // Reset the role field
+      this.apiService.getRolesByIndustryy(industryId).subscribe((roles) => {
+        console.log('Fetched Roles:', roles);  // Check if API is returning roles
+        this.roles = roles;
+        this.jobForm.patchValue({ role_id: '' }); // Clear role field
+      }, (error) => {
+        console.error('Error fetching roles:', error);
       });
     } else {
-      this.roles = [];  // Clear roles if no industry is selected
+      this.roles = [];
     }
   }
-  
-  
-  
-  
-  
 
   addJob(): void {
     if (this.jobForm.valid) {
@@ -81,6 +79,7 @@ export class AddJobComponent {
       console.error('Form is invalid');
     }
   }
+
   goBackHome(): void {
     this.router.navigate(['/admins']);
   }

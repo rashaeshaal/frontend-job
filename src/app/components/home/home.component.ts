@@ -30,7 +30,7 @@ export class HomeComponent {
   ) {}
 
   ngOnInit(): void {
-    // Retrieve user data from localStorage
+  
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       this.userData = JSON.parse(storedUser);
@@ -39,7 +39,6 @@ export class HomeComponent {
       console.log('Logged-in User:', this.userData);
     } else {
       console.log('No user data found in localStorage');
-      // Handle the case when no user data is found (e.g., redirect to login page)
       this.router.navigate(['/handlelogin']);
     }
 
@@ -109,8 +108,6 @@ export class HomeComponent {
 
   applyForJob(job: Job): void {
     console.log(`Applying for job: ${job.title}`);
-
-    // Pass loginUserID and loginUserType via router state or localStorage if needed
     this.router.navigate(['/apply', job.id]);
   }
 }

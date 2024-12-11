@@ -26,26 +26,26 @@ export class LoginComponent implements OnInit {
   }
 
   get f() {
-    return this.loginForm.controls;  // This makes 'f' an alias for 'loginForm.controls'
+    return this.loginForm.controls;  
   }
 
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Form Submitted', this.loginForm.value);
 
-      // Call the API to log in the user
+    
       this.apiService.loginUser(this.loginForm.value).subscribe(
         response => {
           console.log('Login Successful', response);
 
-          const loginUserID = response.user.id;  // Assuming response contains user ID
-          const userType = response.user.user_type || 1;  // Adjust according to your response
+          const loginUserID = response.user.id;  
+          const userType = response.user.user_type || 1;  
 
-          // Create the object to pass as query params
+         
           const idDict = { loginUserID: loginUserID, loginUserType: userType };
           const encodedData = encodeURIComponent(JSON.stringify(idDict));
 
-          // Store user details in localStorage
+        
           const userData = {
             id: loginUserID,
             email: response.user.email,
@@ -54,13 +54,10 @@ export class LoginComponent implements OnInit {
           };
           localStorage.setItem('user', JSON.stringify(userData));
 
-          // Optionally, you can also store a JWT token if returned by the API
-          // localStorage.setItem('token', response.token);
-
-          // Navigate to home with query params
+         
           this.router.navigate(['/home'], {
             queryParams: { data: encodedData },
-            state: { userData: { loginUserID: loginUserID, loginUserType: userType } } // Pass user data via router state
+            state: { userData: { loginUserID: loginUserID, loginUserType: userType } } 
           });
         },
         error => {

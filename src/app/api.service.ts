@@ -81,6 +81,10 @@ export class ApiService {
   getRolesByIndustry(industryId:string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/roles/?industry=${industryId}`);
   }
+  getRolesByIndustryy(industryId:number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/roleli/?industry=${industryId}`);
+  }
+  
   
 
   deleteState(stateId: number): Observable<any> {

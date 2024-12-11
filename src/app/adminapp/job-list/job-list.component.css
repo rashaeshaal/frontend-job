@@ -41,7 +41,7 @@
   /* Style for the action buttons */
   .job-list-container button {
     padding: 8px 12px;
-    background-color: #f44336;
+    background-color: #601bea;
     color: white;
     border: none;
     border-radius: 4px;
@@ -52,7 +52,7 @@
   
   /* Button hover effect */
   .job-list-container button:hover {
-    background-color: #e53935;
+    background-color: #ba9998;
   }
   
   /* Responsive table styling */
